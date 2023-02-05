@@ -1,4 +1,4 @@
-# Awesome Project Build with TypeORM
+# Initial TypeOrm and Postgres Setup
 
 Steps to run this project:
 
