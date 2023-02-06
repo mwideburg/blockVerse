@@ -5,7 +5,7 @@ import * as expressListRoutes from 'express-list-routes';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
-  await app.listen(5432);
+  await app.listen(3000);
 
   const server = await app.getHttpServer();
   const router = await server._events.request._router;

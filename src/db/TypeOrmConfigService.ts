@@ -12,7 +12,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
         autoLoadEntities: false,
         synchronize: false,
         logging: true,
-        entities: [path.join(__dirname, `./db/models/*.model{.ts,.js}`)],
+        entities: [path.join(__dirname, `/entities/*.entity{.ts,.js}`)],
         host: "localhost",
             port: 5432,
             username: "test",
