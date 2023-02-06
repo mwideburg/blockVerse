@@ -6,6 +6,7 @@ import { UsersModule } from "./users/Users.module";
 
 @Module({
   imports: [
+    UsersModule,
     RouterModule.register([
       {
         path: "users",

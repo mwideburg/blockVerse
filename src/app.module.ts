@@ -5,6 +5,7 @@ import { TypeOrmConfigModule } from "./db/TypeOrmConfigModule";
 import { TypeOrmConfigService } from "./db/TypeOrmConfigService";
 import { addTransactionalDataSource } from "typeorm-transactional";
 import { DataSource } from "typeorm";
+import { ApiModule } from "./modules/Api.module";
 @Module({
     imports: [
         ConfigModule.forRoot({
@@ -24,6 +25,7 @@ import { DataSource } from "typeorm";
         return addTransactionalDataSource(new DataSource(options));
       },
     }),
+    ApiModule
     ]
 })
 
