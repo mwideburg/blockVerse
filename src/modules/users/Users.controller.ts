@@ -39,7 +39,7 @@ export class UsersController {
   @Version("1")
   @HttpCode(HttpStatus.OK)
   @Post()
-  public async createContact(
+  public async createUser(
     @Body(new ValidationPipe()) payload: CreateUserRequestDto
   ): Promise<any> {
     const user = plainToClass(User, payload)
