@@ -1,4 +1,4 @@
-export class CreateUserRequestDto {
+export class RegisterRequestDto {
     readonly firstName: string
     readonly lastName: string
     readonly username: string

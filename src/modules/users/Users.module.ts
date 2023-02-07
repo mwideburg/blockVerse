@@ -20,5 +20,8 @@ const stage = process.env.STAGE;
     {provide: USERS_SERVICE, useClass: UsersService},
     {provide: USERS_REPOSITORY, useClass: UsersRepository}
   ],
+  exports: [
+    {provide: USERS_SERVICE, useClass: UsersService},
+    {provide: USERS_REPOSITORY, useClass: UsersRepository}]
 })
 export class UsersModule {}

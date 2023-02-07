@@ -3,7 +3,7 @@ import { transformAndValidate } from "class-transformer-validator";
 import { CreateUserRequestDto } from "./dto/requests/CreateUser.request.dto";
 import { IUserRepository, USERS_REPOSITORY } from "./interfaces/IUserS.repository";
 import { IUserService } from "./interfaces/IUsers.service";
-import { User } from "./User.entity";
+import { User } from "./User";
 
 
 export class UsersService implements IUserService {
@@ -13,6 +13,9 @@ export class UsersService implements IUserService {
     @Inject(USERS_REPOSITORY)
     private readonly usersRepository: IUserRepository,
   ) {}
+    getByUsername(userName: string): Promise<User> {
+        return this.usersRepository.getByUsername(userName)
+    }
     public async getUser(id: number): Promise<User> {
         return this.usersRepository.getUser(id)
     }

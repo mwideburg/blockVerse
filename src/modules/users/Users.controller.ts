@@ -14,7 +14,7 @@ import { plainToClass } from "class-transformer";
 import { transformAndValidate } from "class-transformer-validator";
 import { CreateUserRequestDto } from "./dto/requests/CreateUser.request.dto";
 import { IUserService, USERS_SERVICE } from "./interfaces/IUsers.service";
-import { User } from "./User.entity";
+import { User } from "./User";
 
 
 
@@ -43,6 +43,6 @@ export class UsersController {
     @Body(new ValidationPipe()) payload: CreateUserRequestDto
   ): Promise<any> {
     const user = plainToClass(User, payload)
-    this.userService.createUser(payload)
+    this.userService.createUser(user)
   }
 }

@@ -1,4 +1,6 @@
 import {
+    HttpException,
+    HttpStatus,
   Injectable,
   Logger,
   UnprocessableEntityException,
@@ -8,8 +10,8 @@ import { plainToClass } from "class-transformer";
 import { Repository, Equal } from "typeorm";
 import { UserEntity } from "../../db/entities/User.entity";
 import { IUserRepository } from "./interfaces/IUserS.repository";
-import { User } from "./User.entity";
-
+import { User } from "./User";
+import * as bcrypt from "bcrypt"
 
 @Injectable()
 export class UsersRepository implements IUserRepository {
@@ -19,13 +21,15 @@ export class UsersRepository implements IUserRepository {
     @InjectRepository(UserEntity)
     private readonly userStore: Repository<UserEntity>
   ) {}
+    
 
     public async createUser(user: Omit<User, "id">): Promise<User> {
         try{
-            console.log("USER", user)
+            user.password = await this.createHash(user.password)
+
             const newUser = await this.userStore.create(user)
-            const savedUser = await this.userStore.save(newUser)
-            console.log("NEW USER", newUser)
+            await this.userStore.save(newUser)
+
             return this.getUser(newUser.id)
         }catch(ex){
             this.logger.log(ex)
@@ -33,16 +37,38 @@ export class UsersRepository implements IUserRepository {
         }
     }
     public async getUser(id: number): Promise<User> {
-        const user = await this.userStore.findOneOrFail({
-        where: {
-          id: Equal(id),
-        }})
-
-        return plainToClass(User, user)
+        try{
+            const user = await this.userStore.findOneOrFail({
+            where: {
+              id: Equal(id),
+            }})
+    
+            return plainToClass(User, user)
+        }catch(ex){
+            throw new HttpException('User with this id does not exist', HttpStatus.NOT_FOUND);
+        }
 
     }
     getUsers(): Promise<[User]> {
         throw new Error("Method not implemented.");
+    }
+
+    public async getByUsername(userName: string): Promise<User> {
+        const user = await this.userStore.findOneOrFail({
+        where: {
+          userName: Equal(userName),
+        }})
+
+        return plainToClass(User, user)
+    }
+
+    private async createHash(password: string): Promise<string> {
+        return bcrypt.hash(password, 10)
+    }
+
+    private async passwordIsMatching(password: string, user: User): Promise<string> {
+        const isPasswordMatching = await bcrypt.compare(password, user.password);
+        return bcrypt.hash(password, 10)
     }
 
   
