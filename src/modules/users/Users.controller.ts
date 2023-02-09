@@ -9,9 +9,12 @@ import {
   HttpStatus,
   ValidationPipe,
   Inject,
+  Param,
+  UseGuards,
 } from "@nestjs/common";
 import { plainToClass } from "class-transformer";
 import { transformAndValidate } from "class-transformer-validator";
+import JwtAuthenticationGuard from "../auth/guards/JwtAuthentication.guard";
 import { CreateUserRequestDto } from "./dto/requests/CreateUser.request.dto";
 import { IUserService, USERS_SERVICE } from "./interfaces/IUsers.service";
 import { User } from "./User";
@@ -34,6 +37,15 @@ export class UsersController {
   @Get()
   public async findAll(): Promise<any> {
     return 'This action returns all users';
+  }
+  @Version("1")
+  @HttpCode(HttpStatus.OK)  
+  @UseGuards(JwtAuthenticationGuard)
+  @Get(":id")
+  public async getUser(
+    @Param() param: any
+  ): Promise<any> {
+    return this.userService.getUser(param.id)
   }
 
   @Version("1")

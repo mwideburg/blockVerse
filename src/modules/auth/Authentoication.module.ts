@@ -3,10 +3,10 @@ import { AuthenticationService } from './Authentication.service';
 import { UsersModule } from '../users/users.module';
 import { AuthenticationController } from './Authentication.controller';
 import { PassportModule } from '@nestjs/passport';
-import { LocalStrategy } from './strategies/Local.strategy';
+import { LocalStrategy } from './strategies/local.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { JwtStrategy } from './strategies/Jwt.strategy';
+import { JwtStrategy } from './strategies/jwt.strategy';
 import { UserEntity } from '../../db/entities/User.entity';
 import { UsersService } from '../users/Users.service';
 import { USERS_SERVICE } from '../users/interfaces/IUsers.service';
@@ -32,14 +32,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     }),
 ],
   providers: [
-    //   {
-    //   provide: USERS_SERVICE,
-    //   useClass: UsersService
-    //   },
-    //   {
-    //   provide: USERS_REPOSITORY,
-    //   useClass: UsersRepository
-    //   },
     UsersService,
     UsersRepository,
     AuthenticationService, 

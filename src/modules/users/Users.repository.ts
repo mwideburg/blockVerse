@@ -25,9 +25,9 @@ export class UsersRepository implements IUserRepository {
 
     public async createUser(user: Omit<User, "id">): Promise<User> {
         try{
-            user.password = await this.createHash(user.password)
 
-            const newUser = await this.userStore.create(user)
+
+            const newUser = await this.userStore.create({...user})
             await this.userStore.save(newUser)
 
             return this.getUser(newUser.id)
@@ -66,9 +66,9 @@ export class UsersRepository implements IUserRepository {
         return bcrypt.hash(password, 10)
     }
 
-    private async passwordIsMatching(password: string, user: User): Promise<string> {
-        const isPasswordMatching = await bcrypt.compare(password, user.password);
-        return bcrypt.hash(password, 10)
+    private async passwordIsMatching(password: string, hashedPassword: string): Promise<boolean> {
+        return bcrypt.compare(password, hashedPassword);
+
     }
 
   

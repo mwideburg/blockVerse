@@ -1,16 +1,18 @@
 
-import { ExtractJwt } from 'passport-jwt';
+import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Request } from 'express';
 import { UsersService } from '../../users/Users.service';
-import { Strategy } from 'passport-local';
+
+import { User } from '../../users/User';
+
 
 
  
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtStrategy extends PassportStrategy(Strategy, "jwt") {
   constructor(
     private readonly configService: ConfigService,
     private readonly userService: UsersService,
@@ -23,7 +25,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
  
-  async validate(payload: TokenPayload) {
+  public async validate(payload: TokenPayload): Promise<User> {
     return this.userService.getUser(payload.userId);
   }
 }
