@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, Unique } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, Unique, OneToMany } from "typeorm"
+import { WorldEntity } from "./World.entity"
 @Entity("user")
 @Unique(["userName"])
 export class UserEntity {
@@ -17,5 +18,8 @@ export class UserEntity {
 
     @Column()
     password: string
+
+    @OneToMany(() => WorldEntity, (world) => world.creator)
+    worlds: WorldEntity[]
 
 }
