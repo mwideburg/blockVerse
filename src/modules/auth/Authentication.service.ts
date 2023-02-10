@@ -66,6 +66,14 @@ export class AuthenticationService {
     }
     return null;
   }
+  async validateUserParams(tokenUserId: number, paramsUserId: number): Promise<any> {
+    const user = await this.usersService.getUser(tokenUserId);
+    if (tokenUserId === paramsUserId) {
+      const { password, ...result } = user;
+      return result;
+    }
+    return null;
+  }
 
 
   private async verifyPassword(plainTextPassword: string, hashedPassword: string): Promise<boolean> {

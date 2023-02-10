@@ -1,3 +1,4 @@
+import { User } from "../users/User"
 import WorldObject from "../worldObjects/WorldObject"
 
 export default class World {
@@ -5,4 +6,6 @@ export default class World {
     name: string
     width: number
     length: number
+    creator: User
+    createdBy: number
 }

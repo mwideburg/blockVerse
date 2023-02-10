@@ -1,5 +1,5 @@
 import { IsNumber, Max, Min } from "class-validator"
-import { Entity, PrimaryGeneratedColumn, Column, Unique, OneToMany, ManyToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
 import { UserEntity } from "./User.entity"
 import { WorldEntity } from "./World.entity"
 @Entity("worldObjects")
@@ -9,6 +9,9 @@ export class WorldObjectEntity {
     id: number
 
     @Column()
+    objectType: number
+
+    @Column()
     x: number
 
     @Column()
@@ -16,6 +19,18 @@ export class WorldObjectEntity {
 
     @Column()
     z: number
+
+    @Column({nullable: true})
+    width?: number
+
+    @Column({nullable: true})
+    depth?: number
+
+    @Column({nullable: true})
+    height?: number
+
+    @Column()
+    worldId: number
 
     @ManyToOne(() => WorldEntity, (world) => world.worldObjects)
     world: UserEntity

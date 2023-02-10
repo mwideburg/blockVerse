@@ -25,21 +25,24 @@ export class WorldsRepository implements IWorldRepository {
   ) {}
     public async createWorld(world: Omit<World, "id">): Promise<World> {
         try{
-            const newWorld = await this.worldStore.create({...world})
+            const newWorld = await this.worldStore.create({...world })
             await this.worldStore.save(newWorld)
             return this.getWorldById(newWorld.id)
         }catch(ex){
             this.logger.log(ex)
-            throw new Error("Could not create world....")
+            throw new HttpException("Could not create world....", HttpStatus.BAD_REQUEST)
         }
     }
 
     public async getWorldById(id: number): Promise<World> {
         try{
             const world = await this.worldStore.findOneOrFail({
-            where: {
-              id: Equal(id),
-            }})
+                where: {
+                id: Equal(id),
+                },
+                relations: ["creator", "worldObjects"],
+            })
+            console.log(":::::: WORLD", world)
     
             return plainToClass(World, world)
         }catch(ex){
@@ -48,8 +51,25 @@ export class WorldsRepository implements IWorldRepository {
 
     }
 
-    getUserWorlds(id: number): Promise<World[]> {
-        throw new Error("Method not implemented.");
+    public async getUserWorlds(id: number): Promise<World[]> {
+         try{
+            console.log("USER ID :::::::::::", id)
+            const worlds = await this.worldStore.find({
+                where: {
+                createdBy: Equal(id),
+                },
+                relations: ["worldObjects"],
+            })
+            const userWorlds: World[] = []
+            worlds.forEach(async (world: WorldEntity) => {
+                const worldToClass = await plainToClass(World, world)
+                userWorlds.push(worldToClass)
+            })
+            return userWorlds
+
+        }catch(ex){
+            throw new HttpException('World with this id does not exist', HttpStatus.NOT_FOUND);
+        }
     }
   
 }

@@ -1,0 +1,3 @@
+interface CreateWorldRequestParams{
+    userId: number
+}

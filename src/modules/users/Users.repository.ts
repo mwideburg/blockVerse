@@ -41,7 +41,9 @@ export class UsersRepository implements IUserRepository {
             const user = await this.userStore.findOneOrFail({
             where: {
               id: Equal(id),
-            }})
+            },
+            relations: ["worlds"]
+        })
     
             return plainToClass(User, user)
         }catch(ex){

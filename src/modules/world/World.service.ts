@@ -14,22 +14,22 @@ export class WorldsService implements IWorldService {
 
   constructor(
     @Inject(WORLD_REPOSITORY)
-    private readonly usersRepository: IWorldRepository,
+    private readonly worldRepository: IWorldRepository,
   ) {}
     public async createWorld(
         payload: Omit<World, "id">
     ): Promise<any> {
-        const user = await this.usersRepository.createWorld(payload)
+        const user = await this.worldRepository.createWorld(payload)
         this.logger.log("Successfully created user...");
         return user
     }
-    
+
     getWorldById(id: number): Promise<World> {
         throw new Error("Method not implemented.");
     }
     
     getUserWorlds(id: number): Promise<World[]> {
-        throw new Error("Method not implemented.");
+        return this.worldRepository.getUserWorlds(id)
     }
 
 }

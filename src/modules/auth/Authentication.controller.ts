@@ -4,7 +4,7 @@ import { AuthenticationService } from './Authentication.service';
 
 import { LocalAuthenticationGuard } from './guards/LocalAuthentication.guard';
 import { RegisterRequestDto } from './dto/request/Register.request.dto';
-import RequestWithUser from './interfaces/RequestWitgUser.interface';
+import RequestWithUser from './interfaces/RequestWithUser.interface';
 import { Response } from 'express';
 import JwtAuthenticationGuard from './guards/JwtAuthentication.guard';
 

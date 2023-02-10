@@ -13,6 +13,7 @@ import { USERS_SERVICE } from '../users/interfaces/IUsers.service';
 import { USERS_REPOSITORY } from '../users/interfaces/IUserS.repository';
 import { UsersRepository } from '../users/Users.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserStrategy } from './strategies/User.strategy';
  
 @Module({
     imports: [
@@ -37,6 +38,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     AuthenticationService, 
     LocalStrategy, 
     JwtStrategy,
+    UserStrategy
 ],
   controllers: [AuthenticationController]
 })
