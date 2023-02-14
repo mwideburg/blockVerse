@@ -5,23 +5,23 @@ const initialState = {
 isAuthenticated: false,
 accessToken: {},
 username: '',
-errors: ''
+userDate: {},
+errors: '',
 };
 
 export default function(state = initialState, action) {
-switch (action.type) {
-  case LOGIN:
-    return {
-      isAuthenticated: true,
-    }
-  case RECEIVE_USER_DATA:
-    return Object.assign({}, state, action.userData)
-  
-    case LOGOUT:
-      initialState.errors = action.message;
-      return initialState;
+    switch (action.type) {
+    case LOGIN:
+        console.log("ACTION", action)
+        return Object.assign({}, state, {isAuthenticated: true, userData: action.userData})
+    case RECEIVE_USER_DATA:
+        return Object.assign({}, state, action.userData)
+    
+        case LOGOUT:
+        initialState.errors = action.message;
+        return initialState;
 
-  default:
-    return state;
-}
+    default:
+        return state;
+    }
 }

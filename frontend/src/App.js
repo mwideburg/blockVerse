@@ -1,43 +1,54 @@
-import ReactDOM from 'react-dom'
 import React from "react";
-import { Canvas , useFrame} from '@react-three/fiber'
-import { OrbitControls } from "@react-three/drei";
 import "./styles.css";
-function MyRotatingBox() {
-  const myMesh = React.useRef();
+import {connect} from 'react-redux';
+import LoginComponent from './components/login/login_component';
+import RotateBox from './components/rotateBox/rotateBox'
+import MyBox from './components/normalBox/normalBox'
 
-  useFrame(({ clock }) => {
-    const a = clock.getElapsedTime();
-    myMesh.current.rotation.x = a;
-  });
 
-  return (
-    <mesh ref={myMesh} >
-      <boxBufferGeometry args={[2, 2, 2]} />
-      <meshPhongMaterial color="royalblue" />
-    </mesh>
-  );
+const mSTP = state => {
+  return ({
+    loggedIn: state.session.isAuthenticated,
+    username: state.session.username,
+    errors: state.session.errors
+  })
 }
 
-export default function App() {
-  return (
+const mDTP = dispatch => {
+
+  return ({
+
+//   logout: () => dispatch(logout())
+    })
+}
+class App extends React.Component {
+
+    // constructor(props){
+    //     super(props);
+    // }
+
+  render(){
+    if (!this.props.loggedIn) return (
+        <div className="App">
+        <div>
+        <LoginComponent />
+        </div>
+        <div>
+            <RotateBox />
+        </div>
+        </div>
+    )
+    return (
     <div className="App">
-      <Canvas>
-        <MyRotatingBox />
-        <OrbitControls
-        enableZoom={false}
-        rotateSpeed={2}
-        autoRotate={true}
-        autoRotateSpeed={5}
-        />
-        <ambientLight intensity={0.1} />
-        <directionalLight />
-      </Canvas>
+        <div>
+            <MyBox />
+        </div>
+    
     </div>
   );
+  }
 }
+export default connect(mSTP, mDTP)(App)
 
-
-ReactDOM.render(<App />, document.getElementById('root'))
 
 

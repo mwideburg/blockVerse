@@ -1,6 +1,6 @@
 
-import { applyMiddleware } from "redux";
-import {configureStore} from "@reduxjsx/toolkit"
+
+import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "../reducers/root_reducer";
 
@@ -13,8 +13,8 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 
-const configureReduxStore = (preloadedState = {}) =>
-   configureStore(rootReducer, preloadedState, applyMiddleware(...middlewares));
+const configureStore = (preloadedState = {}) =>
+   createStore(rootReducer, preloadedState, applyMiddleware(...middlewares));
 
 
-export default configureReduxStore
+export default configureStore

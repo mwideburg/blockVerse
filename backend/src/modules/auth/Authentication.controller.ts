@@ -1,4 +1,4 @@
-import { Body, Req, Controller, HttpCode, Post, UseGuards, Res, Get, Request } from '@nestjs/common';
+import { Body, Req, Controller, HttpCode, Post, UseGuards, Res, Get, Request, Logger } from '@nestjs/common';
 import { AuthenticationService } from './Authentication.service';
 
 
@@ -11,6 +11,7 @@ import JwtAuthenticationGuard from './guards/JwtAuthentication.guard';
  
 @Controller('')
 export class AuthenticationController {
+    private readonly logger = new Logger(AuthenticationController.name);
   constructor(
     private readonly authenticationService: AuthenticationService
   ) {}
@@ -28,6 +29,7 @@ export class AuthenticationController {
     const cookie = this.authenticationService.getCookieWithJwtToken(user.id);
     response.setHeader('Set-Cookie', cookie);
     user.password = undefined;
+    this.logger.log("successfull login", user)
     return response.send(user);
   }
 
