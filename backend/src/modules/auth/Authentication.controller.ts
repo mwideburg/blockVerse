@@ -26,11 +26,12 @@ export class AuthenticationController {
   @Post('log-in')
   async logIn(@Request() request: RequestWithUser, @Res() response: Response) {
     const {user} = request;
-    const cookie = this.authenticationService.getCookieWithJwtToken(user.id);
+    const {cookie, token} = this.authenticationService.getCookieWithJwtToken(user.id);
     response.setHeader('Set-Cookie', cookie);
     user.password = undefined;
+    console.log("COOKIE", cookie)
     this.logger.log("successfull login", user)
-    return response.send(user);
+    return response.send({...user, accessToken: token});
   }
 
   @UseGuards(JwtAuthenticationGuard)

@@ -1,5 +1,3 @@
-
-
 import{connect} from 'react-redux'
 import {registerUser, loginUser} from "../../actions/session_actions"
 import LoginComponent from './login';

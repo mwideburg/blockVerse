@@ -1,7 +1,7 @@
 import axios from "axios";
 import axiosRetry from "axios-retry";
 
-const apiBaseRoute = axios.create({
+const ApiBaseCredentialsRoute = axios.create({
   baseURL:
     process.env.NODE_ENV !== "production"
       ? "http://localhost:5000/"
@@ -9,6 +9,6 @@ const apiBaseRoute = axios.create({
   timeout: 5000,
 });
 
-axiosRetry(apiBaseRoute, { retries: 3 });
+axiosRetry(ApiBaseCredentialsRoute, { retries: 3 });
 
-export default apiBaseRoute;
+export default ApiBaseCredentialsRoute;

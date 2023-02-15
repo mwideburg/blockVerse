@@ -36,7 +36,7 @@ export const receiveErrors = errors => ({
 export const registerUser = user => dispatch => {
     return (register(user).then(res => {
         // debugger
-        console.log("RES :::::::::", res)
+        console.log("RES :::::::::", res.data)
         dispatch(receiveCurrentUser(res.data))
     })
         .catch(err => {
