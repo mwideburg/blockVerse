@@ -55,7 +55,7 @@ export class WorldsController {
 
   @Version("1")
   @HttpCode(HttpStatus.OK)  
-  @UseGuards(JwtAuthenticationGuard)
+//   @UseGuards(JwtAuthenticationGuard)
   @Get("")
   public async getUserWorlds(
     @Param() param: any

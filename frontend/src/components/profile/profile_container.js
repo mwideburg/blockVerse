@@ -2,6 +2,7 @@ import{connect} from 'react-redux'
 import ProfileComponent from './profile'
 import {getUserWorlds} from '../../actions/user_actions'
 const mapStateToProps = (state) => {
+    console.log("STATE", state)
     return {
         userData: state.session.userData,
         worlds: state.user.worlds

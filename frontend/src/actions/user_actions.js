@@ -10,7 +10,7 @@ export const recieveUserWorlds = worlds => ({
 export const getUserWorlds = (user) => dispatch => {
     console.log(user)
     return getWorlds(user).then((res) => {
-        console.log(res)
+        console.log("::::::::: RES", res)
         return dispatch(recieveUserWorlds(res.data))
     }).catch(err => {
             

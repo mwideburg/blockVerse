@@ -1,3 +1,4 @@
+import axios from 'axios';
 import ApiBaseCredentialsRoute from '../api/withCredentialsApi';
 
 
@@ -7,5 +8,5 @@ export const getWorlds = (user) => {
   const accessToken = user.accessToken
   console.log("userid", userId)
   console.log("acceessToken", accessToken)
-  return ApiBaseCredentialsRoute.get(`/users/${userId}/worlds`,{ headers: {"Authorization" : accessToken}, withCredentials: true,});
+  return ApiBaseCredentialsRoute.get(`/users/${userId}/worlds`, { headers: {'Authorization': `Bearer ${accessToken}`}});
 };

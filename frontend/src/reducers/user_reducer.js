@@ -5,14 +5,15 @@ import {
 
 
 const initialState = {
-    worlds: {}
+    worlds: []
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initialState, action) => {
   switch (action.type) {
     case RECIEVE_WORLDS:
-        return Object.assign({}, action.worlds);
+        console.log("ACTION ::::::: RECIEVE WORLDS :::", action)
+        return Object.assign({}, {worlds: action.worlds});
     default:
       return state;
   }
