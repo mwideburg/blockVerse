@@ -1,7 +1,7 @@
 
 
 
-import {register, login} from '../utils/session_api_util'
+import {register, login, logout} from '../utils/session_api_util'
 
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
@@ -27,10 +27,10 @@ export const receiveErrors = errors => ({
     errors
 });
 
-// export const logoutUser = (message) => ({
-//   type: LOGOUT,
-//   message
-// })
+export const logOutUserResponse = (message) => ({
+  type: LOGOUT,
+  message
+})
 
 
 export const registerUser = user => dispatch => {
@@ -56,9 +56,14 @@ export const loginUser = user => dispatch => {
         }))
 }
 
-// export const logout = () => dispatch => {
-//     localStorage.removeItem('jwtToken')
-//     localStorage.removeItem('robot')
-//     APIUtil.setAuthToken(false)
-//     dispatch(logoutUser())
-// };
+export const logOutUser = (user) => dispatch => {
+     return (logout(user).then(res => {
+        // debugger
+        console.log("RES :::::::::", res.data)
+        dispatch(logOutUserResponse(res.data))
+    })
+        .catch(err => {
+            
+            dispatch(receiveErrors(err.response.data));
+        }))
+};

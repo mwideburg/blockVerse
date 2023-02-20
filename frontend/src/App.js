@@ -44,17 +44,10 @@ class App extends React.Component {
     const profileUrl = `/users/${userId}`
     return (
         <BrowserRouter>
-           <div className="App">
-            <ul className="App-header">
-              <li>
-                <Link to={profileUrl}>Profile</Link>
-              </li>
-             
-            </ul>
+          
            <Switch>
                  <Route path={profileUrl} component={ProfileComponent}></Route>
           </Switch>
-          </div>
        </BrowserRouter>
   );
   }

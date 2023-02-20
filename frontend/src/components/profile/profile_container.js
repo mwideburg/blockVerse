@@ -1,6 +1,7 @@
 import{connect} from 'react-redux'
 import ProfileComponent from './profile'
 import {getUserWorlds} from '../../actions/user_actions'
+import { logOutUser } from '../../actions/session_actions';
 const mapStateToProps = (state) => {
     console.log("STATE", state)
     return {
@@ -12,6 +13,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     return {
         getWorlds: (user) => dispatch(getUserWorlds(user)),
+        logoutUser: (user) => dispatch(logOutUser(user)),
     }
 }
 

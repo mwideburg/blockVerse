@@ -1,6 +1,8 @@
 
 import React from 'react';
-
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
 class LoginComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -70,45 +72,21 @@ class LoginComponent extends React.Component {
         // debugger
 
         return (
-            <div className="login-container">
-                <button onClick={this.toggleLogin}>
-                    Switch to {this.state.loginText}
-                </button>
-                <form onSubmit={this.handleSubmit}>
-                    <div className="form-center">
-                        <input type="text"
-                            className="input-field"
-                            value={this.state.userName}
-                            onChange={this.update('userName')}
-                            placeholder="UserName"
-                        />
-                        <br />
-                        {/* <input type="text"
-                            className="input-field"
-                            value={this.state.firstName}
-                            onChange={this.update('firstName')}
-                            placeholder="first name"
-                        />
-                        <br />
-                        <input type="text"
-                            className="input-field"
-                            value={this.state.lastName}
-                            onChange={this.update('lastName')}
-                            placeholder="last name"
-                        />
-                        <br /> */}
-                        <input type="password"
-                            className="input-field"
-                            value={this.state.password}
-                            onChange={this.update('password')}
-                            placeholder="Password"
-                        />
-                        <br />
-                        <input type="submit" className="submit-button" value="Submit" />
-                        {/* {this.renderErrors()} */}
+            <div>
                 
-                    </div>
-                </form>
+                <TextField id="standard-basic" label="Username" variant="standard" value={this.state.userName} placeholder="UserName" onChange={this.update('userName')}/>
+                <br/>
+                <TextField id="standard-basic" label="Password" variant="standard" type="password" value={this.state.password} placeholder="password" onChange={this.update('password')}/>
+                <br/>
+                <br/>
+                <Button variant="contained" onClick={this.handleSubmit}>
+                    Submit
+                </Button>
+                <br/>
+                <br/>
+                <Link href="#" onClick={this.toggleLogin} underline="hover" >
+                    Switch to {this.state.loginText}
+                </Link>
             </div>
         );
     }

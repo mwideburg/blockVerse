@@ -34,7 +34,7 @@ export class AuthenticationController {
     return response.send({...user, accessToken: token});
   }
 
-  @UseGuards(JwtAuthenticationGuard)
+//   @UseGuards(JwtAuthenticationGuard)
   @Post('log-out')
   async logOut(@Req() request: RequestWithUser, @Res() response: Response) {
     response.setHeader('Set-Cookie', this.authenticationService.getCookieForLogOut());
