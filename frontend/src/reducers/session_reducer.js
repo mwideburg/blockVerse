@@ -23,9 +23,6 @@ export default function(state = initialState, action) {
     switch (action.type) {
     case LOGIN:
         localStorage.setItem('user', JSON.stringify(action.userData));
-        console.log("SET LOCAL STORAGE")
-        const user = JSON.parse(localStorage.getItem('user'));
-        console.log("LOCAL STIRAGE", user)
         return Object.assign({}, state, {isAuthenticated: true, userData: action.userData})
     case RECEIVE_USER_DATA:
         return Object.assign({}, state, {isAuthenticated: true, userData: action.userData})
