@@ -3,7 +3,10 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
+
+
 class LoginComponent extends React.Component {
+    
     constructor(props) {
         super(props);
         console.log(props)
@@ -40,7 +43,6 @@ class LoginComponent extends React.Component {
 
     async handleSubmit(e) {
         e.preventDefault();
-
         let user = {
             userName: this.state.userName,
             password: this.state.password,
@@ -51,9 +53,12 @@ class LoginComponent extends React.Component {
              userName: this.state.userName,
             password: this.state.password,
         }
-        await this.state.login ? this.props.login(login) : this.props.register(user)
-        console.log(":::: PROPS", this.props)
-        console.log(":::: State", this.state)
+        if(this.state.login){
+            this.props.login(login)
+        }else{
+            this.props.register(user)
+        }
+        
     }
 
     renderErrors() {
@@ -73,20 +78,17 @@ class LoginComponent extends React.Component {
 
         return (
             <div>
-                
+                <Link onClick={this.toggleLogin} underline="hover">
+                    Switch to {this.state.loginText}
+                </Link>
+                <br/>
                 <TextField id="standard-basic" label="Username" variant="standard" value={this.state.userName} placeholder="UserName" onChange={this.update('userName')}/>
                 <br/>
                 <TextField id="standard-basic" label="Password" variant="standard" type="password" value={this.state.password} placeholder="password" onChange={this.update('password')}/>
                 <br/>
-                <br/>
                 <Button variant="contained" onClick={this.handleSubmit}>
                     Submit
                 </Button>
-                <br/>
-                <br/>
-                <Link href="#" onClick={this.toggleLogin} underline="hover" >
-                    Switch to {this.state.loginText}
-                </Link>
             </div>
         );
     }

@@ -17,6 +17,8 @@ export const receiveCurrentUser = userData => {
 })};
 
 export const receiveUserData = userData => {
+    console.log("USER DATA", userData)
+
     return ({
     type: RECEIVE_USER_DATA,
     userData
@@ -56,14 +58,25 @@ export const loginUser = user => dispatch => {
         }))
 }
 
-export const logOutUser = (user) => dispatch => {
-     return (logout(user).then(res => {
+export const getUser = user => dispatch => {
+    return (getUser(user).then(res => {
         // debugger
         console.log("RES :::::::::", res.data)
-        dispatch(logOutUserResponse(res.data))
+        dispatch(receiveCurrentUser(res.data))
     })
         .catch(err => {
             
             dispatch(receiveErrors(err.response.data));
+        }))
+}
+
+export const logOutUser = (user) => dispatch => {
+     return (logout(user).then(res => {
+        // debugger
+        dispatch(logOutUserResponse(res.data))
+    })
+        .catch(err => {
+            console.log("ERROR", err)
+            dispatch(receiveErrors(err));
         }))
 };

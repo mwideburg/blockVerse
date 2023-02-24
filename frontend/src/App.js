@@ -1,11 +1,14 @@
 import React from "react";
+import { useEffect, useState } from 'react';
 import "./styles.css";
 import {connect} from 'react-redux';
-import LoginComponent from './components/login/login_container';
+import LoginForm from "./components/login/login_test"
 import RotateBox from './components/rotateBox/rotateBox'
+import {receiveCurrentUser, receiveUserData, getUser} from "./actions/session_actions"
 // import MyBox from './components/normalBox/normalBox'
 import ProfileComponent from "./components/profile/profile_container";
 import { BrowserRouter ,Switch, Route, Link } from 'react-router-dom';
+import { AuthRoute, ProtectedRoute } from "./utils/route_util";
 
 const mSTP = state => {
   return ({
@@ -19,38 +22,47 @@ const mSTP = state => {
 const mDTP = dispatch => {
 
   return ({
-
+    getUserInfo: (user) => dispatch(getUser(user))
 //   logout: () => dispatch(logout())
     })
 }
-class App extends React.Component {
+const App = () => {
 
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+            console.log("user", user)
+        getUser(user);
+        }
+    }, []);
     // constructor(props){
     //     super(props);
     // }
 
-  render(){
-    if (!this.props.loggedIn) return (
-        <div className="App">
-        <div>
-        <LoginComponent />
-        </div>
-        <div>
-            <RotateBox />
-        </div>
-        </div>
-    )
-    const userId = this.props.userData.id
-    const profileUrl = `/users/${userId}`
+
+    // if (!this.props.loggedIn) return (
+    //     <div className="App">
+    //     <div>
+    //     <LoginForm />
+    //     </div>
+    //     <div>
+    //         <RotateBox />
+    //     </div>
+    //     </div>
+    // )
+    // const userId = this.props.userData.id
+    // const profileUrl = `/users/${userId}`
+    // console.log("USER DATA", userId)
     return (
         <BrowserRouter>
           
+                <AuthRoute path="/" component={LoginForm}></AuthRoute>
            <Switch>
-                 <Route path={profileUrl} component={ProfileComponent}></Route>
+                 <ProtectedRoute path="/profile" component={ProfileComponent}></ProtectedRoute>
           </Switch>
        </BrowserRouter>
   );
-  }
+
 }
 export default connect(mSTP, mDTP)(App)
 

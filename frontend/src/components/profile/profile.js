@@ -40,7 +40,6 @@ class ProfileComponent extends React.Component {
 
     render() {
         // debugger
-        console.log("STATE RENDER", this.props)
         let worlds = []
         if(this.props.worlds){
             worlds = this.props.worlds

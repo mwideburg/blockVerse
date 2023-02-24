@@ -32,20 +32,20 @@ export class UsersController {
   ) {}
 
   //   @ApplyApiResponses()
-  @Version("1")
-  @HttpCode(HttpStatus.OK)  
-  @Get()
-  public async findAll(): Promise<any> {
-    return 'This action returns all users';
-  }
+//   @Version("1")
+//   @HttpCode(HttpStatus.OK)  
+//   @Get()
+//   public async findAll(): Promise<any> {
+//     return 'This action returns all users';
+//   }
   @Version("1")
   @HttpCode(HttpStatus.OK)  
   @UseGuards(JwtAuthenticationGuard)
-  @Get(":id")
+  @Get()
   public async getUser(
-    @Param() param: any
+    @Body() body: any
   ): Promise<any> {
-    return this.userService.getUser(param.id)
+    return this.userService.getUser(body.id)
   }
 
   @Version("1")
