@@ -8,7 +8,8 @@ import RotateBox from './components/rotateBox/rotateBox'
 import ProfileComponent from "./components/profile/profile_container";
 import { BrowserRouter ,Switch, Route, Link } from 'react-router-dom';
 import { AuthRoute, ProtectedRoute } from "./utils/route_util";
-
+import CreateWorld from "./components/createWorld/createWorld";
+import Scene from "./components/ThreeManager/SceneComponent"
 const mSTP = state => {
   return ({
     loggedIn: state.session.isAuthenticated,
@@ -27,11 +28,12 @@ const App = () => {
     return (
         <BrowserRouter>
           
-                <AuthRoute path="/" component={LoginForm}></AuthRoute>
+                <AuthRoute path="/login" component={LoginForm}></AuthRoute>
+                
            <Switch>
                  <ProtectedRoute path="/profile" component={ProfileComponent}></ProtectedRoute>
+                 <ProtectedRoute path="/createWorld" component={Scene}></ProtectedRoute>
           </Switch>
-          <RotateBox />
        </BrowserRouter>
   );
 

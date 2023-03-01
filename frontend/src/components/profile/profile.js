@@ -2,8 +2,6 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import ListButton from '@mui/material/ListItemButton';
 class ProfileComponent extends React.Component {
     constructor(props){

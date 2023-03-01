@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {Link, Routes, Route, Redirect} from 'react-router-dom';
 import Button from '@mui/material/Button';
 import {registerUser, loginUser} from "../../actions/session_actions"
-
+import RotateBox from '../rotateBox/rotateBox'
 import { connect } from 'react-redux';
 const LoginForm = ( { isAuthenticated, loginUser, userId, userData } ) => {
 
@@ -24,6 +24,7 @@ const LoginForm = ( { isAuthenticated, loginUser, userId, userData } ) => {
     }
 
     return (
+        <div>
         <form onSubmit={handleSubmit}>
             <div>
                 <label htmlFor="username">Username:</label>
@@ -45,6 +46,9 @@ const LoginForm = ( { isAuthenticated, loginUser, userId, userData } ) => {
             </div>
             <button type="submit">Log In</button>
         </form>
+
+        <RotateBox />
+        </div>
     );
 };
 
