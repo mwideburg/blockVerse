@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { ControllerClass } from './ControllerClass';
+import { ObjectManager } from './ObjectManager';
 
 export default class ViewGL{
     constructor(canvasRef) {
@@ -24,8 +25,8 @@ export default class ViewGL{
         geometry.rotateX(-Math.PI / 2);
         this.scene.add(gridHelper);
         
-        this.controller = new ControllerClass(this.camera, canvasRef)
-
+        this.objectManager = new ObjectManager()
+        this.controller = new ControllerClass(this.camera, canvasRef, this.objectManager)
 
         
 
