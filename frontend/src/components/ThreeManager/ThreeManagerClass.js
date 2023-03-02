@@ -1,9 +1,14 @@
 import * as THREE from 'three';
-import { RenderEngine } from '../Renderer/RenderEngine';
-export default class ThreeManagerClass{
+import { ControllerClass } from './ControllerClass';
+
+export default class ViewGL{
     constructor(canvasRef) {
-        this.canvas = canvasRef
-        this.camera = new THREE.PerspectiveCamera(
+        this.scene = new THREE.Scene();
+        this.renderer = new THREE.WebGLRenderer({
+            canvas: canvasRef,
+            antialias: false,
+        });
+         this.camera = new THREE.PerspectiveCamera(
             45,
             window.innerWidth / window.innerHeight,
             1,
@@ -11,18 +16,20 @@ export default class ThreeManagerClass{
         );
         this.camera.position.set(500, 800, 1300);
         this.camera.lookAt(0, 0, 0);
-        this.scene = new THREE.Scene();
-        this.renderEngine = new RenderEngine(this.canvas, this.camera)
+        this.scene.background = new THREE.Color("white");
         this.scene.add(this.camera);
         const gridHelper = new THREE.GridHelper(5000, 100);
         gridHelper.position.y += 0.01;
-        this.scene.add(gridHelper);
         const geometry = new THREE.PlaneGeometry(5000, 5000);
         geometry.rotateX(-Math.PI / 2);
+        this.scene.add(gridHelper);
+        
+        this.controller = new ControllerClass(this.camera, canvasRef)
 
-        const plane = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ visible: false }));
-        plane.name = "plane";
-        this.scene.add(plane);
+
+        
+
+        this.onWindowResize(window.innerWidth, window.innerHeight)
         this.update();
     }
 
@@ -35,9 +42,14 @@ export default class ThreeManagerClass{
       // Mouse moves
     }
 
+    onWindowResize(vpW, vpH) {
+        this.renderer.setSize(vpW, vpH);
+    }
 
     // ******************* RENDER LOOP ******************* //
     update(t) {
-        this.renderEngine.requestRenderIfNotRequested()
+        this.renderer.render(this.scene, this.camera);
+
+        requestAnimationFrame(this.update.bind(this));
     }
 }

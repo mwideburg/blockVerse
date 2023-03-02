@@ -2,14 +2,14 @@ import * as THREE from 'three';
 
 
 export class RenderEngine {
-    constructor(canvas, camera) {
+    constructor(canvas, camera, scene) {
         const renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         const renderDiv = document.getElementById("renderDiv");
         console.log(renderDiv)
-        if (renderDiv) {
-            renderDiv.appendChild(renderer.domElement);
-        }
+
+            canvas.appendChild(renderer.domElement);
+
         this.canvas = canvas
         this.camera = camera
         this.renderer = renderer;
@@ -17,8 +17,10 @@ export class RenderEngine {
         // this.render = this.render.bind(this);
         // this.onWindowResize = this.onWindowResize.bind(this);
         // window.addEventListener("resize", this.onWindowResize);
+        this.scene = scene
         this.render = this.render.bind(this);
         this.requestRenderIfNotRequested = this.requestRenderIfNotRequested.bind(this);
+        console.log("SCENE", scene)
     }
 
     onInit() {}
@@ -52,16 +54,6 @@ export class RenderEngine {
         this.requestRenderIfNotRequested();
     }
 
-    // render(): void {
-    //     requestAnimationFrame(this.render);
-
-    //     if (this.controllerService.interactionService.controls) {
-    //         this.controllerService.interactionService.controls.update();
-    //     }
-
-    //     this.renderer.render(this.scene, this.camera);
-    // }
-
     animate() {
         // We have to run this outside angular zones,
         // because it could trigger heavy changeDetection cycles.
@@ -74,14 +66,6 @@ export class RenderEngine {
                 });
             }
 
-            // if (this.controllerService.interactionService.controls) {
-            //     // this.controllerService.interactionService.controls.update();
-            //     this.controllerService.interactionService.controls.addEventListener(
-            //         "change",
-            //         this.requestRenderIfNotRequested,
-            //     );
-            // }
-
             window.addEventListener("resize", () => {
                 this.resize();
             });
@@ -89,12 +73,9 @@ export class RenderEngine {
     }
 
     render() {
-        if(!this.renderer || !this.camera) return
+        if(!this.renderer || !this.camera || !this.scene) return
+        console.log("RENDER")
         this.requestAnimation = false;
-
-        // if (this.controllerService.interactionService.controls) {
-        //     this.controllerService.interactionService.controls.update();
-        // }
 
         this.camera.updateProjectionMatrix();
 
@@ -105,6 +86,7 @@ export class RenderEngine {
         // console.log("REQUEST");
 
         if (!this.requestAnimation && this.renderer) {
+            console.log("REQUEST")
             this.requestAnimation = true;
             requestAnimationFrame(this.render);
         }
@@ -112,7 +94,7 @@ export class RenderEngine {
 
     resize(){
         const element = this.canvas;
-
+        console.log("HEY")
         if (this.scene && this.renderer && this.camera && element) {
             const width = window.innerWidth;
             const height = window.innerHeight;
