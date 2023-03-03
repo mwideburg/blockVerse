@@ -32,6 +32,14 @@ export class ControllerClass{
             );
         });
 
+        this.interactionService.click$.subscribe((isShiftDown) => {
+             this.unitCreator.click(
+                        this.interactionService.raycaster,
+                        isShiftDown,
+                        this.objectManager.objects,
+                    );
+        });
+
         this.controls.update();
     }
 

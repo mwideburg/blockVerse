@@ -45,6 +45,10 @@ export default class ViewGL{
             this.scene.remove(object);
             // this.renderEngine.requestRenderIfNotRequested();
         });
+
+
+
+        
         this.objectManager.objects.push(plane);
         this.unitCreator.activate()
 

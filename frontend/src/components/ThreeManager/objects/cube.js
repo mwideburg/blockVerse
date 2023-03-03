@@ -17,6 +17,7 @@ export class Cube {
                   dimensions.depth + 1,
               )
             : new THREE.BoxGeometry(51, 101, 51);
+        this.group = new THREE.Group();
         const edges = new THREE.EdgesGeometry(edgesGeo);
         this.edges = new THREE.LineSegments(
             edges,

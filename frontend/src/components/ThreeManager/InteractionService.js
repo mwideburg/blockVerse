@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { bufferTime, distinctUntilChanged, filter, fromEvent, map, Subject } from "rxjs";
@@ -20,11 +21,11 @@ export class InteractionService{
         this.isShiftDown = false;
         this.establishPointerListeners();
         
-        // this.onDocumentKeyDown = this.onDocumentKeyDown.bind(this);
-        // this.onDocumentKeyUp = this.onDocumentKeyUp.bind(this);
+        this.onDocumentKeyDown = this.onDocumentKeyDown.bind(this);
+        this.onDocumentKeyUp = this.onDocumentKeyUp.bind(this);
         this.pointerMove = this.pointerMove.bind(this);
-        // document.addEventListener("keydown", this.onDocumentKeyDown);
-        // document.addEventListener("keyup", this.onDocumentKeyUp);
+        document.addEventListener("keydown", this.onDocumentKeyDown);
+        document.addEventListener("keyup", this.onDocumentKeyUp);
     }
 
     establishPointerListeners() {
@@ -143,6 +144,42 @@ export class InteractionService{
         // const intersects = this.raycaster.intersectObjects(this.objectService.objects);
         this.click$.next(this.isShiftDown);
     }
+
+    onDocumentKeyDown(event) {
+        switch (event.keyCode) {
+            case 16:
+                this.isShiftDown = true;
+                // console.log(this.isShiftDown);
+                break;
+            case 83:
+                this.commandIsDown = true;
+                this.controls.enablePan = false;
+                this.controls.enableZoom = false;
+                this.controls.enableRotate = false;
+                // console.log("DISABLING CONTROLS");
+                break;
+        }
+    }
+
+    onDocumentKeyUp(event) {
+        // console.log(event.keyCode);
+
+        switch (event.keyCode) {
+            case 16:
+                this.isShiftDown = false;
+
+                break;
+            case 83:
+                this.commandIsDown = false;
+                this.controls.enablePan = true;
+                this.controls.enableZoom = true;
+                this.controls.enableRotate = true;
+                // console.log("ENABLING CONTROLS");
+                // console.log(this.isShiftDown);
+                break;
+        }
+    }
+
 
 
 }
