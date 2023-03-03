@@ -16,6 +16,8 @@ export default class Scene extends React.Component {
         // Init any event listeners
         console.log(this.threeManager)
         window.addEventListener('resize', this.handleResize);
+
+        // this.threeManager.onInit()
     }
 
     componentWillUnmount() {

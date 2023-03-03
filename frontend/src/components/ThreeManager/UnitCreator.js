@@ -12,7 +12,7 @@ export class UnitCreator{
             depth: 100,
         };
         this.addObject$ = new Subject();
-        this.removeObject$$ = new Subject();
+        this.removeObject$ = new Subject();
 
         const rollOverGeo = new THREE.BoxGeometry(
             this.dimensions.width,
@@ -28,6 +28,7 @@ export class UnitCreator{
         this.rollOverMesh = new THREE.Mesh(rollOverGeo, rollOverMaterial);
         this.rollOverMesh.name = "rollOverMesh";
         this.addObject$.next(this.rollOverMesh);
+        console.log("ADDING MESH", this.rollOverMesh)
         this.onPointerMove = this.onPointerMove.bind(this);
         this.setDimensions = this.setDimensions.bind(this);
     }

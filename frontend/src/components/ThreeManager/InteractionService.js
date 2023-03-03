@@ -5,25 +5,33 @@ import { bufferTime, distinctUntilChanged, filter, fromEvent, map, Subject } fro
 
 export class InteractionService{
 
-    constructor(objectManager, camera){
+    constructor(objectManager, camera, canvas){
         this.objectManager = objectManager
         this.camera = camera
         this.raycaster = new THREE.Raycaster();
         this.mouse = new THREE.Vector2();
-        this.establishPointerListeners();
-        this.onDocumentKeyDown = this.onDocumentKeyDown.bind(this);
-        this.onDocumentKeyUp = this.onDocumentKeyUp.bind(this);
-        this.pointerMove = this.pointerMove.bind(this);
 
-        document.addEventListener("keydown", this.onDocumentKeyDown);
-        document.addEventListener("keyup", this.onDocumentKeyUp);
+        this.domElement = canvas
+        this.evCache = [];
+        this.pointerMove$ = new Subject();
+        this.click$ = new Subject();
+        this.pointerDown$ = new Subject();
+        this.pointerUp$ = new Subject();
+        this.isShiftDown = false;
+        this.establishPointerListeners();
+        
+        // this.onDocumentKeyDown = this.onDocumentKeyDown.bind(this);
+        // this.onDocumentKeyUp = this.onDocumentKeyUp.bind(this);
+        this.pointerMove = this.pointerMove.bind(this);
+        // document.addEventListener("keydown", this.onDocumentKeyDown);
+        // document.addEventListener("keyup", this.onDocumentKeyUp);
     }
 
     establishPointerListeners() {
         if (!this.domElement) {
             return;
         }
-
+        console.log("ESTABLISH POINTERS")
         const nativeElement = this.domElement;
         // pointerup obervable
         // ----------------------------------------------------------------------
@@ -67,7 +75,7 @@ export class InteractionService{
                     this.isPinching = false;
                 }, 50);
             }
-
+            
             this.pointerUp$.next(true);
             this.pointerIsDown = false;
             // console.log(this.evCache);
@@ -125,6 +133,15 @@ export class InteractionService{
         // const intersects = this.raycaster.intersectObjects(this.objectService.objects);
 
         this.pointerMove$.next(true);
+    }
+
+    click(event) {
+        this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        this.raycaster.setFromCamera(this.mouse, this.camera);
+        // const intersects = this.raycaster.intersectObjects(this.objectService.objects);
+        this.click$.next(this.isShiftDown);
     }
 
 

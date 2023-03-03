@@ -23,5 +23,25 @@ export class ObjectManager{
         this.objects = this.objects.filter((object) => object !== mesh)
     }
 
+    addCubeObject(cube) {
+        const mesh = cube.children.find((obj) => obj.name === "cube");
+        console.log("HEY")
+        if (mesh && mesh instanceof THREE.Mesh) {
+            this.addMeshToObjects(mesh);
+        }
+    }
+
+    removeCubeObject(cube) {
+        const mesh = cube.children.find((obj) => obj.name === "cube");
+
+        if (this.selectedGroup.children.includes(cube)) {
+            this.selectedGroup.remove(cube);
+        }
+
+        if (mesh && mesh instanceof THREE.Mesh) {
+            this.removeMeshFromObjects(mesh);
+        }
+    }
+
     
 }
