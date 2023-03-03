@@ -48,31 +48,13 @@ export default class ViewGL{
 
 
 
-        
+
         this.objectManager.objects.push(plane);
         this.unitCreator.activate()
 
         this.onWindowResize(window.innerWidth, window.innerHeight)
         this.update();
     }
-
-    // async onInit(){
-        
-    //     this.controllerService.unitCreator.addObject$.subscribe((object) => {
-    //         this.objectManager.addCubeObject(object);
-    //         this.scene.add(object);
-    //         this.renderEngine.requestRenderIfNotRequested();
-    //     });
-    //     this.controllerService.unitCreator.removeObject$.subscribe((object) => {
-    //         this.objectManager.removeCubeObject(object);
-    //         this.scene.remove(object);
-    //         this.renderEngine.requestRenderIfNotRequested();
-    //     });
-        
-
-    //     this.onWindowResize(window.innerWidth, window.innerHeight)
-    //     this.update();
-    // }
 
     // ******************* PUBLIC EVENTS ******************* //
     updateValue(value) {

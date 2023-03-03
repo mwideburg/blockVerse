@@ -34,9 +34,7 @@ export class InteractionService{
         }
         console.log("ESTABLISH POINTERS")
         const nativeElement = this.domElement;
-        // pointerup obervable
-        // ----------------------------------------------------------------------
-        // console.log("HELLO");
+        
         const pointerUp$ = fromEvent(nativeElement, "pointerup");
         const pointerDown$ = fromEvent(nativeElement, "pointerdown");
         const pointerMove$ = fromEvent(nativeElement, "pointermove");
@@ -61,7 +59,6 @@ export class InteractionService{
             }
 
             this.pointerIsDown = true;
-            // console.log(this.evCache);
         });
         pointerUp$.subscribe((ev) => {
             for (var i = 0; i < this.evCache.length; i++) {
@@ -79,22 +76,12 @@ export class InteractionService{
             
             this.pointerUp$.next(true);
             this.pointerIsDown = false;
-            // console.log(this.evCache);
-        });
 
-        // click will select unit no mater what so dblClick just needs to move camera and not select Unit
-        // ----------------------------------------------------------------------
+        });
         pointerDown$.subscribe((down) => {
             pointerUp$.subscribe((up) => {
                 if (!this.isPinching && !this.dblClicked) {
                     if (up.timeStamp - down.timeStamp < 150 && !this.dblClicked) {
-                        // const intersect = this.click(down);
-                        // if (intersect) {
-                        //     this.click(intersect);
-                        // } else {
-                        //     this.objectService.removeHover();
-                        //     this.hoverSummaryService.hide();
-                        // }
                         this.click(down);
                     }
                 } else {
@@ -102,15 +89,10 @@ export class InteractionService{
                         this.dblClick(down);
                     }
                 }
-
-                // console.log("UP DOWN", up.timeStamp, down.timeStamp);
-                // return [down, up];
             });
         });
 
         pointerMove$.subscribe((event) => {
-            // console.log(this.commandIsDown);
-
             this.pointerMove(event);
         });
 
@@ -130,9 +112,6 @@ export class InteractionService{
         this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
         this.raycaster.setFromCamera(this.mouse, this.camera);
-
-        // const intersects = this.raycaster.intersectObjects(this.objectService.objects);
-
         this.pointerMove$.next(true);
     }
 
@@ -141,7 +120,6 @@ export class InteractionService{
         this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
         this.raycaster.setFromCamera(this.mouse, this.camera);
-        // const intersects = this.raycaster.intersectObjects(this.objectService.objects);
         this.click$.next(this.isShiftDown);
     }
 
@@ -149,21 +127,17 @@ export class InteractionService{
         switch (event.keyCode) {
             case 16:
                 this.isShiftDown = true;
-                // console.log(this.isShiftDown);
                 break;
             case 83:
                 this.commandIsDown = true;
                 this.controls.enablePan = false;
                 this.controls.enableZoom = false;
                 this.controls.enableRotate = false;
-                // console.log("DISABLING CONTROLS");
                 break;
         }
     }
 
     onDocumentKeyUp(event) {
-        // console.log(event.keyCode);
-
         switch (event.keyCode) {
             case 16:
                 this.isShiftDown = false;
@@ -174,8 +148,6 @@ export class InteractionService{
                 this.controls.enablePan = true;
                 this.controls.enableZoom = true;
                 this.controls.enableRotate = true;
-                // console.log("ENABLING CONTROLS");
-                // console.log(this.isShiftDown);
                 break;
         }
     }
