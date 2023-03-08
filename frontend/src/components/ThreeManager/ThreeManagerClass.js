@@ -46,6 +46,8 @@ export default class ViewGL{
             // this.renderEngine.requestRenderIfNotRequested();
         });
 
+        this.serializeScene = this.serializeScene.bind(this)
+
 
 
 
@@ -54,6 +56,10 @@ export default class ViewGL{
 
         this.onWindowResize(window.innerWidth, window.innerHeight)
         this.update();
+    }
+
+    serializeScene(){
+        return JSON.stringify(this.scene.toJSON())
     }
 
     // ******************* PUBLIC EVENTS ******************* //
