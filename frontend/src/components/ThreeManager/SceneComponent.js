@@ -26,6 +26,10 @@ export default class Scene extends React.Component {
 
     saveScene(){
         const serializedScene = this.threeManager.serializeScene()
+        const unserializedScene = serializedScene.map((object) => {
+            return JSON.parse(object)
+        })
+        console.log("UNSERIALIZED", unserializedScene)
     }
 
     // ******************* EVENT LISTENERS ******************* //

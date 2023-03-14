@@ -57,10 +57,12 @@ export default class ViewGL{
     }
 
     serializeScene(){
+        console.log("BEFORER SERIALIZED", this.objectManager.objects)
         const objectsToString =this.objectManager.objects.map((object) => {
-            JSON.stringify(object)
+            return JSON.stringify(object.toJSON())
         })
         console.log(objectsToString)
+        return objectsToString
     }
 
     // ******************* PUBLIC EVENTS ******************* //
