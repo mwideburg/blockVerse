@@ -14,7 +14,6 @@ const LoginForm = ( { isAuthenticated, loginUser, userId, userData } ) => {
         event.preventDefault();
         const user = {userName, password, firstName: "test firstName",
             lastName: "test lastName",}
-        console.log(user)
         loginUser(user);
 
     };

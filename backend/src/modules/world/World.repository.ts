@@ -42,7 +42,6 @@ export class WorldsRepository implements IWorldRepository {
                 },
                 relations: ["creator", "worldObjects"],
             })
-            console.log(":::::: WORLD", world)
     
             return plainToClass(World, world)
         }catch(ex){
@@ -53,7 +52,6 @@ export class WorldsRepository implements IWorldRepository {
 
     public async getUserWorlds(id: number): Promise<World[]> {
          try{
-            console.log("USER ID :::::::::::", id)
             const worlds = await this.worldStore.find({
                 where: {
                 createdBy: Equal(id),

@@ -17,8 +17,6 @@ export const receiveCurrentUser = userData => {
 })};
 
 export const receiveUserData = userData => {
-    console.log("USER DATA", userData)
-
     return ({
     type: RECEIVE_USER_DATA,
     userData
@@ -38,7 +36,7 @@ export const logOutUserResponse = (message) => ({
 export const registerUser = user => dispatch => {
     return (register(user).then(res => {
         // debugger
-        console.log("RES :::::::::", res.data)
+
         dispatch(receiveCurrentUser(res.data))
     })
         .catch(err => {
@@ -49,7 +47,7 @@ export const registerUser = user => dispatch => {
 export const loginUser = user => dispatch => {
     return (login(user).then(res => {
         // debugger
-        console.log("RES :::::::::", res.data)
+
         dispatch(receiveCurrentUser(res.data))
     })
         .catch(err => {
@@ -61,7 +59,7 @@ export const loginUser = user => dispatch => {
 export const getUser = user => dispatch => {
     return (getUser(user).then(res => {
         // debugger
-        console.log("RES :::::::::", res.data)
+
         dispatch(receiveCurrentUser(res.data))
     })
         .catch(err => {
@@ -76,7 +74,7 @@ export const logOutUser = (user) => dispatch => {
         dispatch(logOutUserResponse(res.data))
     })
         .catch(err => {
-            console.log("ERROR", err)
+
             dispatch(receiveErrors(err));
         }))
 };

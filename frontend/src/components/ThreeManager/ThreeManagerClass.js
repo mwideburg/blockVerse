@@ -32,10 +32,8 @@ export default class ViewGL{
         this.unitCreator = new UnitCreator()
         this.objectManager = new ObjectManager()
         this.controller = new ControllerClass(this.camera, canvasRef, this.objectManager, this.unitCreator)
-        console.log("CONTROLLER", this.controller.unitCreator.addObject$.subscribe())
         
         this.controller.unitCreator.addObject$.subscribe((object) => {
-            console.log("HELLO")
             this.objectManager.addCubeObject(object);
             this.scene.add(object);
             // this.renderEngine.requestRenderIfNotRequested();
@@ -59,7 +57,10 @@ export default class ViewGL{
     }
 
     serializeScene(){
-        return JSON.stringify(this.scene.toJSON())
+        const objectsToString =this.objectManager.objects.map((object) => {
+            JSON.stringify(object)
+        })
+        console.log(objectsToString)
     }
 
     // ******************* PUBLIC EVENTS ******************* //

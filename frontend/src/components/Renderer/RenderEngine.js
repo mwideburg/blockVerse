@@ -6,9 +6,8 @@ export class RenderEngine {
         const renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         const renderDiv = document.getElementById("renderDiv");
-        console.log(renderDiv)
 
-            canvas.appendChild(renderer.domElement);
+        canvas.appendChild(renderer.domElement);
 
         this.canvas = canvas
         this.camera = camera
@@ -20,7 +19,6 @@ export class RenderEngine {
         this.scene = scene
         this.render = this.render.bind(this);
         this.requestRenderIfNotRequested = this.requestRenderIfNotRequested.bind(this);
-        console.log("SCENE", scene)
     }
 
     onInit() {}
@@ -74,7 +72,6 @@ export class RenderEngine {
 
     render() {
         if(!this.renderer || !this.camera || !this.scene) return
-        console.log("RENDER")
         this.requestAnimation = false;
 
         this.camera.updateProjectionMatrix();
@@ -83,10 +80,8 @@ export class RenderEngine {
     }
 
     requestRenderIfNotRequested() {
-        // console.log("REQUEST");
 
         if (!this.requestAnimation && this.renderer) {
-            console.log("REQUEST")
             this.requestAnimation = true;
             requestAnimationFrame(this.render);
         }
@@ -94,7 +89,6 @@ export class RenderEngine {
 
     resize(){
         const element = this.canvas;
-        console.log("HEY")
         if (this.scene && this.renderer && this.camera && element) {
             const width = window.innerWidth;
             const height = window.innerHeight;

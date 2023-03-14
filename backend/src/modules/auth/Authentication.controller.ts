@@ -26,11 +26,11 @@ export class AuthenticationController {
   @Post('log-in')
   async logIn(@Request() request: RequestWithUser, @Res() response: Response) {
     const {user} = request;
-    console.log("::::::::: USER", user)
+
     const {cookie, token} = this.authenticationService.getCookieWithJwtToken(user.id);
     response.setHeader('Set-Cookie', cookie);
     user.password = undefined;
-    console.log("COOKIE", cookie)
+
     this.logger.log("successfull login", user)
     return response.send({...user, accessToken: token});
   }
@@ -38,7 +38,6 @@ export class AuthenticationController {
 //   @UseGuards(JwtAuthenticationGuard)
   @Post('log-out')
   async logOut(@Res() response: Response) {
-    console.log(":::::::::: LOG OUT")
     response.setHeader('Set-Cookie', this.authenticationService.getCookieForLogOut());
     return response.sendStatus(200);
   }

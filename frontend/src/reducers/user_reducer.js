@@ -12,7 +12,6 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case RECIEVE_WORLDS:
-        console.log("ACTION ::::::: RECIEVE WORLDS :::", action)
         return Object.assign({}, {worlds: action.worlds});
     default:
       return state;

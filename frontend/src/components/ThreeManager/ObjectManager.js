@@ -25,7 +25,6 @@ export class ObjectManager{
 
     addCubeObject(cube) {
         const mesh = cube.children.find((obj) => obj.name === "cube");
-        console.log("HEY")
         if (mesh && mesh instanceof THREE.Mesh) {
             this.addMeshToObjects(mesh);
         }

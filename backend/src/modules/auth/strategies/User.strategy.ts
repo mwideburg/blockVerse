@@ -27,7 +27,7 @@ export class UserStrategy extends PassportStrategy(Strategy, "user") {
   }
  
   public async validate(payload: TokenPayload, params: CreateWorldRequestParams): Promise<User> {
-    console.log(":::::: PAYLOAD ::::::", payload, params)
+
     const user = await this.authenticationService.validateUserParams(payload.userId, params.userId);
     if (!user) {
       throw new UnauthorizedException();

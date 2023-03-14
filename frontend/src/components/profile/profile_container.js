@@ -3,7 +3,6 @@ import ProfileComponent from './profile'
 import {getUserWorlds} from '../../actions/user_actions'
 import { logOutUser } from '../../actions/session_actions';
 const mapStateToProps = (state) => {
-    console.log("STATE", state)
     return {
         userData: state.session.userData,
         worlds: state.user.worlds

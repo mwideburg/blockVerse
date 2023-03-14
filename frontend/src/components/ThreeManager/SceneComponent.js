@@ -14,7 +14,6 @@ export default class Scene extends React.Component {
         const canvas = this.canvasRef.current;
         this.threeManager = new ViewGL(canvas);
         // Init any event listeners
-        console.log(this.threeManager)
         window.addEventListener('resize', this.handleResize);
 
         // this.threeManager.onInit()
@@ -27,7 +26,6 @@ export default class Scene extends React.Component {
 
     saveScene(){
         const serializedScene = this.threeManager.serializeScene()
-        console.log(serializedScene)
     }
 
     // ******************* EVENT LISTENERS ******************* //
