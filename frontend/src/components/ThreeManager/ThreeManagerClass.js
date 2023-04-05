@@ -61,8 +61,8 @@ export default class ViewGL{
         const objectsToString =this.objectManager.objects.map((object) => {
             return JSON.stringify(object.toJSON())
         })
-        console.log(objectsToString)
-        return objectsToString
+        console.log("SCENE", JSON.stringify(this.scene))
+        return [objectsToString, JSON.stringify(this.scene)]
     }
 
     // ******************* PUBLIC EVENTS ******************* //
